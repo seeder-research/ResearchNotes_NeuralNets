@@ -1,0 +1,20 @@
+\section{Hierarchical Temporal Memory}
+
+The central idea in HTM is that computations are based on \emph{time sequences} of probabilistic events. For example, neuron spike patterns are interpreted as variations of time sequences of individual spikes. Learning in the network requires the recollection/recovery of neuron spike sequences throughout the network from memory and hence, the HTM model must be generative/predictive.
+
+The initial version of HTM looks at the problem as a Bayesian inference problem in a dynamical network. When the input is presented to the network, it must extract from the input salient features that the network has learned. The idea of features is similar to the conventional neural network approach. Individual units are trained to respond to a particular feature. Since abstract features are formed from simpler features, the units must be organized into a hierarchy where those in layers closer to the input are recognizing simpler features and those in the levels closer to the output are recognizing abstract features.
+
+\subsection{Coincidences and Markov Chains}
+Since the data in HTM is different from those in neural networks, the authors of \cite{George2009} define two additional concepts to better explain the operation of HTM:
+
+\begin{enumerate}
+\item Coincidence: a time sequence of probabilitic events that occur in over a short period of time
+\item Markov chain: a time sequence of probabilitic events that are constructed from one or more coincidences
+\end{enumerate}
+These definitions allow salient features in the input to be represented by coincidences. Also, the idea is now generalizable to other layers in the network because Markov chains of a layer can be treated as coincidences of the next layer. The approach also makes sense since it takes time for abtract features to manifest themselves and become detectable. Consequently, the time scale of coincidences depends on the layer of the network. Layers closer to the input have shorter time scales whereas those in the later layers have longer time scales.
+
+\subsection{Roles of feedforward and feedback}
+
+In the HTM, every unit looks at the inputs coming from its receptive field and determines the \emph{likelihood} that of observing each of the Markov chains that it has learned, which is sent in the feedforward path. There is a feedback path that provides information about the likelihood of observing each Markov chain, based on information from the rest of the network that the unit does not see. The information provided by this feedback helps refine/correct the calculation of the unit.
+
+The idea is founded in Bayesian inference. Inputs to a unit may contain many similar features/coincidences that make it difficult to distinguish between the Markov chains it has learned. Units at the next layer takes inputs from many units in the same layer as the unit we are considering and hence, has more information available to inform the unit about the likely Markov chains that are in its inputs. Thus, the propagation of feedback information is helpful for distinguishing the Markov chains being detected by units in each layer of the HTM. This means that the HTM network, which is a dynamical system, can be stabilized by the feedback.
